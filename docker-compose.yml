@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web:
+    image: node:slim
+    working_dir: /code
+    volumes:
+      - .:/code
+    ports:
+      - "3000:3000" # Backend
+      - "3001:3001" # Frontend
+    tty: true
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
