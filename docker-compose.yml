@@ -17,7 +17,7 @@ services:
     image: postgres:13
     environment:
       POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_PASSWORD: JTACFkLAGvF0DUubBLVuS6361gg01pC8
       POSTGRES_DB: mydb
     volumes:
       - pgdata:/var/lib/postgresql/data
