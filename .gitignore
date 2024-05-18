@@ -1,0 +1,7 @@
+# BE
+/BE/movies-app/node_modules
+/BE/movies-app/dist
+
+# FE
+/FE/movies-app/node_modules
+/FE/movies-app/build
