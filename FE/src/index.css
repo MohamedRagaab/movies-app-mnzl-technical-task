@@ -1,5 +1,6 @@
 :root {
-  --primary-color: #007bff;
+  --primary-color: rgb(15, 15, 15);
+  --header-color: rgb(15, 15, 15);
 }
 
 body {
