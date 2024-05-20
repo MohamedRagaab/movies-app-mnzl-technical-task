@@ -1,5 +1,4 @@
 # Movies App
-# Chat System
 * MNZL technical Challenge for the software engineer position.
 * You can try it from here (Note that it might take sometime at the beginning): https://movies-app-mnzl-technical-task.onrender.com
 
