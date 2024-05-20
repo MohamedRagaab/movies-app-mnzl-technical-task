@@ -50,6 +50,12 @@ npm run start
 <hr/>
 </div>
 
+* Render deployments (FE, BE and DB):
+<div align='center'>
+<img height="350px" src="https://github.com/MohamedRagaab/movies-app-mnzl-technical-task/assets/38363762/6765de8e-c4f3-418a-b230-bade469cc437">
+<hr/>
+</div>
+
 ## Usage 🚀
 * Here is the list of the RESTful APIs
   - Users:
