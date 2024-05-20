@@ -20,7 +20,7 @@
 git clone https://github.com/MohamedRagaab/movies-app-mnzl-technical-task.git
 cd movies-app-mnzl-technical-task
 ```
-* You can install docker desktop then run the following command to start the  and then open: http://localhost
+* You can install docker desktop then run the following command to start the whole app and then open: http://localhost
 ``` bash
 docker compose up
 ```
