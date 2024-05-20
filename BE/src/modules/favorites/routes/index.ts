@@ -9,7 +9,7 @@ import { Authenticate } from '../../../common/middleware/auth.js';
 const Router = express.Router();
 
 Router.get(
-    '/:id',
+    '/',
     Authenticate,
     controller[FAVORITES_ROUTES_V1.FAVORITES_GET_FAVORITES]
 );
