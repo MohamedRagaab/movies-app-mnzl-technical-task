@@ -26,7 +26,9 @@ docker compose up
 ```
 * or you can run every service manually
 <br>
+
 BE:
+
 ``` bash
 cd /BE
 npm install
