@@ -35,11 +35,13 @@ npm run start
 ```
 
 FE:
+
 ``` bash
 cd /FE
 npm install
 npm run start
 ```
+
 * For the database, I created a Postgresql db on Render so you don't have to deal with this part. it will connect to it directly. have a look at the DB design:
 <div align='center'>
 <img height="350px" src="https://github.com/MohamedRagaab/movies-app-mnzl-technical-task/assets/38363762/9a384946-ed1b-48d3-b5d3-5e7bebd56e85">
