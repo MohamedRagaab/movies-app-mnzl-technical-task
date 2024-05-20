@@ -8,13 +8,15 @@ const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [error, setError] = useState<string>(''); // State for error message
+  const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      await API.register({ // Assuming API.signup is your signup endpoint
+      setLoading(true);
+      await API.register({
         name,
         email,
         password
@@ -22,8 +24,10 @@ const Signup: React.FC = () => {
       console.log({ name, email, password });
       navigate('/login');
     } catch (error) {
-      setError('Error signing up. Please try again.'); // Set error message
+      setError('Error signing up. Please try again.');
       console.error('Signup error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,7 +73,9 @@ const Signup: React.FC = () => {
             {showPassword ? '👁️' : '🙈'}
           </span>
         </div>
-        <button type="submit" className="login-button">Sign up</button>
+        <button type="submit" className="login-button" disabled={loading}>
+          {loading ? 'Signing up...' : 'Sign up'}
+        </button>
         <div className="signup-link">
           <span>Have an account? </span>
           <Link to="/login">Login</Link>

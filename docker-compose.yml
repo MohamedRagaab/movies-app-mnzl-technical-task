@@ -1,28 +1,22 @@
 version: '3.8'
 
 services:
-  web:
-    image: node:slim
-    working_dir: /code
-    volumes:
-      - .:/code
+  frontend:
+    build: ./FE
     ports:
-      - "3000:3000" # Backend
-      - "3001:3001" # Frontend
-    tty: true
+      - "80:80"
     depends_on:
-      - db
+      - backend
+    networks:
+      - mynetwork
 
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: JTACFkLAGvF0DUubBLVuS6361gg01pC8
-      POSTGRES_DB: mydb_w1fu
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+  backend:
+    build: ./BE
     ports:
-      - "5432:5432"
+      - "3001:3000"
+    networks:
+      - mynetwork
 
-volumes:
-  pgdata:
+networks:
+  mynetwork:
+    driver: bridge

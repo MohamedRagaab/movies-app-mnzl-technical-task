@@ -25,4 +25,4 @@ type RegisterResponse = AxiosResponse<{
   email: string;
 }>;
 
-type GetUserResponse = AxiosResponse<User>;
+type ListFavorites = AxiosResponse<Favorite>;

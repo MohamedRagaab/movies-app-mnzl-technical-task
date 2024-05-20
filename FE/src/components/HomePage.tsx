@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieCard from './MovieCard';
 import './HomePage.css';
+import API from '../API';
 
 const apiKey = '0a0a30f49d11b31d1786e9d75b730d98';
 const baseUrl = 'https://api.themoviedb.org/3';
@@ -11,6 +12,7 @@ interface Movie {
   release_date: string;
   overview: string;
   poster_path: string;
+  isFavorite: boolean;
 }
 
 const HomePage: React.FC = () => {
@@ -21,10 +23,29 @@ const HomePage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
 
+  const fetchFavoritesIds = async () => {
+    try {
+      const favoritesIds = await API.getFavoritesIds();
+      const ids = favoritesIds.data.data.map((f: any) => {
+        return f.movieId;
+      });
+
+      return ids;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   const fetchMovies = async (url: string) => {
     try {
       const response = await axios.get<{ results: Movie[]; total_pages: number }>(url);
-      setMovies(response.data.results);
+      const ids = await fetchFavoritesIds();
+      const formattedMovies = response.data.results.map((m: Movie) => {
+        const favoriteId = ids.find((id: any) => id == m.id);
+        m.isFavorite = favoriteId ? true : false;
+        return m;
+      });
+      setMovies(formattedMovies);
       setTotalPages(response.data.total_pages);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -37,11 +58,11 @@ const HomePage: React.FC = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    if (searchQuery) {
+    if (searchQuery && searchQuery !== '') {
       const searchUrl = `${baseUrl}/search/movie?api_key=${apiKey}&page=${currentPage}${searchQuery ? `&query=${searchQuery}` : ''}${language ? `&language=${language}` : ''}${year ? `&year=${year}` : ''}&include_adult=false`;
       fetchMovies(searchUrl);
     } else {
-      const discoverUrl = `${baseUrl}/discover/movie?include_video=false&include_adult=false&&page=${currentPage}&api_key=${apiKey}`;
+      const discoverUrl = `${baseUrl}/discover/movie?include_video=false&include_adult=false&&page=${currentPage}${language ? `&language=${language}` : ''}${year ? `&year=${year}` : ''}&api_key=${apiKey}`;
       fetchMovies(discoverUrl);
     }
   }, [searchQuery, language, currentPage, year]);
@@ -54,6 +75,12 @@ const HomePage: React.FC = () => {
   const handlePagination = (page: number) => {
     if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
+  };
+
+  const handleClear = () => {
+    setSearchQuery('');
+    setLanguage('');
+    setYear('');
   };
 
   const renderPagination = () => {
@@ -114,6 +141,7 @@ const HomePage: React.FC = () => {
         <select value={language} onChange={(e) => setLanguage(e.target.value)}>
           <option value="">All Languages</option>
           <option value="en-US">English</option>
+          <option value="ar">Arabic</option>
           <option value="fr">French</option>
         </select>
         <input
@@ -122,7 +150,7 @@ const HomePage: React.FC = () => {
           value={year}
           onChange={(e) => setYear(e.target.value)}
         />
-        <button type="submit">Search</button>
+        <button type="button" onClick={handleClear}>Clear</button>
       </form>
       </div>
 

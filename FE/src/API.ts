@@ -49,11 +49,18 @@ class AxiosAPI {
     return this.axiosInstance.post<RegisterResponse>('users', body);
   }
 
-  // User
-  getUserInfo() {
-    return this.axiosInstance.get<GetUserResponse>('users');
+  // Favorites
+  getFavoritesIds() {
+    return this.axiosInstance.get<ListFavorites>('favorites');
   }
 
+  addFavorite(body = {}) {
+    return this.axiosInstance.post<ListFavorites>('favorites/add', body);
+  }
+
+  removeFavorite(body = {}) {
+    return this.axiosInstance.post<ListFavorites>('favorites/remove', body);
+  }
 }
 
 const API = new AxiosAPI();
