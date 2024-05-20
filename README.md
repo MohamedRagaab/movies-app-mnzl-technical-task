@@ -75,7 +75,7 @@ npm run start
         ```
     - Remove from favorites:
         ``` bash
-        GET /favorites/remove
+        POST /favorites/remove
         ```
     - List Favorites:
         ``` bash
