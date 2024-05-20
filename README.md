@@ -25,6 +25,7 @@ cd movies-app-mnzl-technical-task
 docker compose up
 ```
 * or you can run every service manually
+<br>
 BE:
 ``` bash
 cd /BE
@@ -33,9 +34,9 @@ npm run build
 npm run start
 ```
 
-BE:
+FE:
 ``` bash
-cd /BE
+cd /FE
 npm install
 npm run start
 ```
