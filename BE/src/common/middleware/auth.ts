@@ -26,6 +26,7 @@ passport.use(
       const user = await userservice.findOne({ selector: { id: payload.id } });
 
       if (user) {
+        user.id = parseInt(user.id);
         return done(null, user);
       }
       return done(null, false);

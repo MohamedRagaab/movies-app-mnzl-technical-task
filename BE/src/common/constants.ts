@@ -16,6 +16,10 @@ export const RESPONSE_MESSAGES = {
   WRONG_EMAIL_OR_PASSWORD: {
     MESSAGE: "Wrong email or password!",
     CODE: 3,
+  },
+  MOVIE_ALREADY_ADDED: {
+    MESSAGE: "Movie already added!",
+    CODE: 4,
   }
 };
 

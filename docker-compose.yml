@@ -18,7 +18,7 @@ services:
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: JTACFkLAGvF0DUubBLVuS6361gg01pC8
-      POSTGRES_DB: mydb
+      POSTGRES_DB: mydb_w1fu
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:

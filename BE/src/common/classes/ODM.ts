@@ -58,6 +58,16 @@ class ODM {
 
     return data;
   }
+
+  async delete({ selector = {}, options = {}, transaction = null }: { selector?: any; options?: any; transaction?: Transaction | null }) {
+    const data = await this.MODEL.destroy({
+      where: selector,
+      ...options,
+      ...(transaction && { transaction }),
+    });
+
+    return data;
+  }
 }
 
 export default ODM;

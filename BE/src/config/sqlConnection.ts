@@ -17,7 +17,7 @@ export default class SQLDatabase {
   private sequelize: Sequelize;
   private tableDefinitions: TableDefinition;
   private tableRelationsDefinitions: RelationDefinition[];
-  private RELATION_TYPES = {
+  RELATION_TYPES = {
     HAS_ONE: 'hasOne',
     HAS_MANY: 'hasMany',
     BELONGS_TO: 'belongsTo',
@@ -33,6 +33,9 @@ export default class SQLDatabase {
       config.password,
       {
         dialect: 'postgres',
+        dialectOptions: {
+          ssl: true,
+        },
         ...config
       },
     );

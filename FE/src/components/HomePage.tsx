@@ -3,6 +3,8 @@ import axios from 'axios';
 import MovieCard from './MovieCard';
 import './HomePage.css';
 
+const apiKey = '0a0a30f49d11b31d1786e9d75b730d98';
+const baseUrl = 'https://api.themoviedb.org/3';
 interface Movie {
   id: number;
   title: string;
@@ -30,16 +32,16 @@ const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
-    const discoverUrl = `https://api.themoviedb.org/3/discover/movie?include_video=false&include_adult=false&&page=${currentPage}&api_key=0a0a30f49d11b31d1786e9d75b730d98`;
+    const discoverUrl = `${baseUrl}/discover/movie?include_video=false&include_adult=false&&page=${currentPage}&api_key=${apiKey}`;
     fetchMovies(discoverUrl);
-  }, [currentPage, language, year]);
+  }, [currentPage]);
 
   useEffect(() => {
     if (searchQuery) {
-      const searchUrl = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=${language}&year=${year}&page=${currentPage}&api_key=0a0a30f49d11b31d1786e9d75b730d98`;
+      const searchUrl = `${baseUrl}/3/search/movie?api_key=${apiKey}&page=${currentPage}${searchQuery ? `&query=${searchQuery}` : ''}${language ? `&language=${language}` : ''}${year ? `&year=${year}` : ''}&include_adult=false`;
       fetchMovies(searchUrl);
     } else {
-      const discoverUrl = `https://api.themoviedb.org/3/discover/movie?include_video=false&include_adult=false&&page=${currentPage}&api_key=0a0a30f49d11b31d1786e9d75b730d98`;
+      const discoverUrl = `${baseUrl}/3/discover/movie?include_video=false&include_adult=false&&page=${currentPage}&api_key=${apiKey}`;
       fetchMovies(discoverUrl);
     }
   }, [searchQuery, language, currentPage, year]);

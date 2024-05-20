@@ -9,7 +9,6 @@ const config: any = {
   database,
   host,
   port,
-  ssl: true,
   pool: {
     max: 100,
     min: 0,
