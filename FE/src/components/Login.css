@@ -81,6 +81,10 @@
   .signup-link a:hover {
     text-decoration: underline;
   }
+
+  .error-message {
+    color: var(--primary-color);
+  }
   
   @media (max-width: 768px) {
     .login-form {

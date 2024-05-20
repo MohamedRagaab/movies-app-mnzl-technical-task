@@ -10,7 +10,8 @@ import Signup from "./components/Signup";
 import HomePage from "./components/HomePage";
 
 function App() {
-  const isAuthenticated = true;
+  const isAuthenticated = localStorage.getItem('token') !== null;
+
   return (
     <Router>
       <div className="App">
@@ -18,7 +19,6 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/" element={<Navigate to="/login" replace />} />
             {/* Use a Route component to conditionally render the Navigate component */}
             <Route
               path="/"
@@ -30,7 +30,16 @@ function App() {
                 )
               }
             />
-            <Route path="/home" element={<HomePage />} />
+            <Route
+              path="/home"
+              element={
+                isAuthenticated ? (
+                  <HomePage />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
           </Routes>
         </header>
       </div>

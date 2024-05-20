@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 import './Signup.css';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import API from '../API';
 
 const Signup: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [error, setError] = useState<string>(''); // State for error message
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle login logic here
-    console.log({ email, password });
+    try {
+      await API.register({ // Assuming API.signup is your signup endpoint
+        name,
+        email,
+        password
+      });
+      console.log({ name, email, password });
+      navigate('/login');
+    } catch (error) {
+      setError('Error signing up. Please try again.'); // Set error message
+      console.error('Signup error:', error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -23,6 +35,7 @@ const Signup: React.FC = () => {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Sign up</h2>
+        {error && <div className="error-message">{error}</div>} {/* Display error message */}
         <div className="form-group">
           <input
             type="name"
@@ -44,7 +57,7 @@ const Signup: React.FC = () => {
           />
         </div>
         <div className="form-group password-group">
-        <input
+          <input
             type={showPassword ? "text" : "password"}
             id="password"
             placeholder="Password"

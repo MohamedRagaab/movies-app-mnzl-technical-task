@@ -65,6 +65,10 @@
   .login-button:hover {
     background-color: var(--primary-color);
   }
+
+  .error-message {
+    color: var(--primary-color);
+  }
   
   @media (max-width: 768px) {
     .login-form {

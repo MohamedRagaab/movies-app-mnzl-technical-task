@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import API from '../API';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [error, setError] = useState<string>(''); // State for error message
   const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle login logic here
-    console.log({ email, password });
-    navigate('/home');
+    try {
+      const response = await API.login({
+        email,
+        password
+      });
+      localStorage.setItem('token', response.data.data.token);
+      navigate('/home');
+    } catch (error) {
+      setError('Invalid email or password. Please try again.'); // Set error message
+      console.error('Login error:', error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -23,6 +33,7 @@ const Login: React.FC = () => {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
+        {error && <div className="error-message">{error}</div>} {/* Display error message */}
         <div className="form-group">
           <input
             type="email"
@@ -34,7 +45,7 @@ const Login: React.FC = () => {
           />
         </div>
         <div className="form-group password-group">
-        <input
+          <input
             type={showPassword ? "text" : "password"}
             id="password"
             placeholder="Password"

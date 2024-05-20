@@ -38,10 +38,10 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     if (searchQuery) {
-      const searchUrl = `${baseUrl}/3/search/movie?api_key=${apiKey}&page=${currentPage}${searchQuery ? `&query=${searchQuery}` : ''}${language ? `&language=${language}` : ''}${year ? `&year=${year}` : ''}&include_adult=false`;
+      const searchUrl = `${baseUrl}/search/movie?api_key=${apiKey}&page=${currentPage}${searchQuery ? `&query=${searchQuery}` : ''}${language ? `&language=${language}` : ''}${year ? `&year=${year}` : ''}&include_adult=false`;
       fetchMovies(searchUrl);
     } else {
-      const discoverUrl = `${baseUrl}/3/discover/movie?include_video=false&include_adult=false&&page=${currentPage}&api_key=${apiKey}`;
+      const discoverUrl = `${baseUrl}/discover/movie?include_video=false&include_adult=false&&page=${currentPage}&api_key=${apiKey}`;
       fetchMovies(discoverUrl);
     }
   }, [searchQuery, language, currentPage, year]);
